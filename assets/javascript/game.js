@@ -143,10 +143,10 @@ function roundComplete() {
 
 
 	for (var i = 0; i < answerData.length; i++) {
-				if (answerData[i].movie === chosenAnswer){
-					chosenImage = answerData[i].image;
-				}
-			}
+		if (answerData[i].movie === chosenAnswer){
+			chosenImage = answerData[i].image;
+		}
+	}
 
 
 		console.log(chosenImage);
@@ -163,10 +163,9 @@ function roundComplete() {
 			document.getElementById("startGameButton").innerHTML = "Play Again";
 
 			$(document).on('keyup', function (e) {
-				startGame();
-			    // if (e.keyCode == 13) {
-			    //     startGame();
-			    // }
+			    if (e.keyCode == 13) {
+			        startGame();
+			    }
 			});
 
 		}
@@ -183,7 +182,9 @@ function roundComplete() {
 
 
 
-document.onkeyup =  function (argument) {
+
+
+document.onkeyup =  function keyPress (argument) {
 	lettersGuessed = String.fromCharCode(event.keyCode).toLowerCase();
 
 	console.log(lettersGuessed);
