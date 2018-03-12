@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel ="stylesheet" type="text/css" href="assets/css/style.css">
-	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
 
@@ -15,69 +14,72 @@
 <body>
 
 <div class="container" id="header">
+	<h1 class="display-4"> MOVIE HANGMAN</h1>
 
-	<h1 class="display-4">MOVIE HANGMAN</h1>
-    <hr class="my-3">
-	<p class="lead">
-	  	<a href="#" id="startGameButton"> > Click here to start the game < </a>
-	</p>
+		<p class="lead">
+			Guess the correct movie title!
+		</p>
+	
+	<hr class="my-3">
+
+	  	<button type="button" id="startGameButton" class="btn btn-outline-success" onclick="startGame()"> Click here to start the game </button>
 </div>
 	
 
 
-	<div class="container" id="gameboard">
+<div class="container" id="gameboard">
 	
-		<div class="container" id="answerDisplay">
-			<p><h1>ANSWER DISPLAY</h1></p>
-		</div>
-
-
-		<div class="row">
-			<div class="col-md-6 bg-warning" id="leftbox">
-				<p>
-					PUT IMAGE HERE
-				</p>
-			</div>
-
-
-			<div class="col-md-6 bg-info" id="rightbox">
-				<div class="row" id="stats">
-					<div class ="col-md-4 bg-success" id="wins">
-						<p>
-						WINS<h2 id="numberWins"></h2>
-						</p>
-					</div>
-					<div class ="col-md-4 bg-danger" id="losses">
-						<p>
-						LOSSES<h2 id="numberLost"></h2>
-						</p>
-					</div>
-					<div class ="col-md-4 bg-warning" id="guessLeft">
-						<p>
-						GUESS LEFT<h2 id="numberGuessLeft"></h2>
-						</p>
-					</div>
-				</div>
-				<div class="row bg-danger" id="lettersGuessed">
-				<p>LETTERS GUESSED:&#x2000;<p id="lettersClicked"></p></p>
-				</div>
-			</div>
-		</div>
-	
-		
-	
-	
-		
+	<div class="container" id="answerDisplay">
+		<p><h1>ANSWER DISPLAY</h1></p>
 	</div>
 
+	<div class="row">
+		<div class="col-md-6 bg-warning" id="leftbox">
+			<img id="leftboxImg" width="100%" src="assets/images/question.gif">
+		</div>
+
+
+		<div class="col-md-6" id="rightbox">
+			<div class="row bg-success winloss" id="winalert" style='display:none'>
+				<h2>You Win! </h2>
+			</div>
+			<div class="row bg-danger winloss" id="lossalert" style='display:none'>
+				<h2>You Lose! </h2>
+			</div>
+				<div class="row" id="stats">
+				<div class ="col-md-4 bg-success" id="wins" >
+					<h3> WINS<h2 id="numberWins"></h2>
+						</h3>
+				</div>
+				<div class ="col-md-4 bg-danger" id="losses">
+					<h3>
+					LOSSES<h2 id="numberLost"></h2>
+					</h3>
+				</div>
+				<div class ="col-md-4 bg-warning" id="guessLeft">
+					<h3>GUESS LEFT<h2 id="numberGuessLeft"></h2> </h3>
+				</div>
+				</div>
+				<div class="row bg-danger" id="lettersGuessed">
+					<h3>LETTERS GUESSED:&#x2000;<h3 id="lettersClicked"></h3></h3>
+				</div>
+		</div>
+	</div>
+	
+		
+	
+	
+		
+</div>
 
 
 
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="assets/javascript/game3.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>
 </html>

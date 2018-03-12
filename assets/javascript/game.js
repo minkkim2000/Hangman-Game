@@ -1,16 +1,6 @@
-// 6. Wins: (# of times user guessed the word correctly).
+// GLOBAL VARIABLES
 
-//    * If the word is `madonna`, display it like this when the game starts: `_ _ _ _ _ _ _`.
-
-//    * As the user guesses the correct letters, reveal them: `m a d o _  _ a`.
-
-// 7. Number of Guesses Remaining: (# of guesses remaining for the user).
-
-// 8. Letters Already Guessed: (Letters the user has guessed, displayed like `L Z Y H`).
-
-// 9. After the user wins/loses the game should automatically choose another word and make the user play it.
-
-var movieList = [
+var answerData = [
 	{
 		movie: "kill bill",
 		image: "killbill.jpg"
@@ -31,7 +21,7 @@ var movieList = [
 		image: "prettyinpink.jpg"
 	}, {
 		movie: "fast times in ridgemont high",
-		image: "fast times.jpg"
+		image: "fasttimes.jpg"
 	}, {
 		movie: "how high",
 		image: "howhigh.jpg"
@@ -50,72 +40,160 @@ var movieList = [
 	}
 	];
 
+var answerOptions = answerData.map(a => a.movie);
 
-var choice = Math.floor(Math.random()*movieTitle.length);
-var answer = movieTitle[choice]; //the chosen answer from array
-var answerLength = answer.length;
-var lettersInAnswer = answer.split("");
-var answerDisplay = [];
+var chosenAnswer = "";
+var chosenImage = "";
+var lettersInChosenAns = [];
+var numBlanks = 0;
+var blanksForChosenAns = [];
+var blanksWithRightLetters = [];
+var wrongGuesses = [];
+var lettersGuessed = "";
+var winCount = 0;
+var lossCount = 0;
+var guessesLeft = 12;
 
-console.log(answer);
 
-console.log(lettersInAnswer);
 
-// IF there is a " " in the answer, 
-var splitAnswer1 = answer.split(" ", (answerLength+1));
+function startGame () {
 
-console.log(splitAnswer1);
-for (var i = 0; i < splitAnswer1.length; i++) {
-	answerDisplay.push("_");
+	// choose answer
+	chosenAnswer = answerOptions[Math.floor(Math.random()*answerOptions.length)];
 
-	if (splitAnswer1[i] = " ") {
-		var 
+
+
+	lettersInChosenAns = chosenAnswer.split("");
+
+	numBlanks = chosenAnswer.length;
+
+
+	guessesLeft = 12;
+	wrongGuesses = [];
+	blanksForChosenAns = [];
+
+
+	// make chosen word into blanks
+	for (var i = 0; i < numBlanks; i++) {
+			if (lettersInChosenAns[i] === " ") {
+				blanksForChosenAns.push("&#x2000;");
+				lettersInChosenAns[i] = "&#x2000;";
+			} else {
+				blanksForChosenAns.push("_");
+			}
 	}
-}
-
-document.getElementById("currentWord").innerHTML = 
 
 
+	// change html
+	document.getElementById("winalert").style.display="none";  
+	document.getElementById("lossalert").style.display="none"; 
+
+	document.getElementById("leftbox").innerHTML = "<img id='leftboxImg' width='100%' src='assets/images/question.gif'>";
+	document.getElementById("answerDisplay").innerHTML = blanksForChosenAns.join(" ");
+	document.getElementById("numberGuessLeft").innerHTML = guessesLeft;
+	document.getElementById("numberWins").innerHTML = winCount;
+	document.getElementById("numberLost").innerHTML = lossCount;
+	document.getElementById("lettersClicked").innerHTML = "";
 
 
-
-
-
-
-var lettersGuessed = [];
-var answerDisplay = [];
-
-var wins = 0;
-var losses = 0;
-var guessLeft = 15;
-var lettersGuessed = [];
-
-
-
-
-
-
-
-function startGame(){
-	wins = 0;
-	losses = 0;
-	guessLeft = 15;
-	lettersGuessed = [];
-	answerDisplay = [];
-
-
-}
-
-function checkGuess(){
-
-
-
-
-
-
-if (guessLeft = 0) {
-    answerDisplay.push(answer);
+	console.log(chosenAnswer);
+	console.log(lettersInChosenAns);
+	console.log(numBlanks);
+	console.log(blanksForChosenAns);
 }
 
 
+function checkGuesses (letter) {
+	var correctGuess = false;
+
+	for (var i = 0; i < blanksForChosenAns.length; i++) {
+		if (lettersInChosenAns[i] == letter) {
+			correctGuess = true;
+			console.log("correct letter found");
+		}
+	}
+
+	if (correctGuess) {
+		for (var i = 0; i < numBlanks; i++) {
+			if(chosenAnswer[i] == letter){
+				blanksForChosenAns[i] = letter;
+			}
+		}
+	}
+
+	else {
+		wrongGuesses.push(letter);
+		guessesLeft--;
+	}
+
+
 }
+
+
+
+function roundComplete() {
+	console.log("Win Count: " + winCount + " | Loss Count: " + lossCount + " | Guess Left" + guessesLeft);
+
+	document.getElementById("numberGuessLeft").innerHTML = guessesLeft;
+	document.getElementById("answerDisplay").innerHTML = blanksForChosenAns.join(" ");
+
+
+	console.log(lettersInChosenAns.toString());
+	console.log(blanksForChosenAns.toString());
+
+
+	for (var i = 0; i < answerData.length; i++) {
+				if (answerData[i].movie === chosenAnswer){
+					chosenImage = answerData[i].image;
+				}
+			}
+
+
+		console.log(chosenImage);
+
+		if (blanksForChosenAns.toString() == lettersInChosenAns.toString()) {
+			winCount++;
+			
+			document.getElementById("numberWins").innerHTML = winCount;
+
+			document.getElementById("leftbox").innerHTML = "<img width='100%' src='assets/images/"+ chosenImage + "'/>";
+
+			document.getElementById("winalert").style.display="block";  
+
+			document.getElementById("startGameButton").innerHTML = "Play Again";
+
+			$(document).on('keyup', function (e) {
+				startGame();
+			    // if (e.keyCode == 13) {
+			    //     startGame();
+			    // }
+			});
+
+		}
+		else if (guessesLeft == 0) {
+			lossCount++;
+
+			document.getElementById("lossalert").style.display="block";
+
+			document.getElementById("leftbox").innerHTML = "<img width='100%' src='assets/images/"+ chosenImage + "'/>";
+		
+			document.getElementById("numberLost").innerHTML = lossCount;
+		}
+}
+
+
+
+document.onkeyup =  function (argument) {
+	lettersGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+
+	console.log(lettersGuessed);
+
+	checkGuesses(lettersGuessed);
+	
+	console.log(blanksForChosenAns);
+	console.log("wrongGuesses " + wrongGuesses);
+	document.getElementById("lettersClicked").innerHTML = wrongGuesses.join(" ");
+	roundComplete();
+}
+
+startGame();
