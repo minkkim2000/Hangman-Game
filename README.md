@@ -26,3 +26,6 @@ In this assignment, you'll create a computer game: Hangman. This app will run in
 7. Letters Already Guessed: (Letters the user has guessed, displayed like `L Z Y H`).
 
 8. After the user wins/loses the game should automatically choose another word and make the user play it.
+
+
+Live Demo: https://minkkim2000.github.io/Hangman-Game/
