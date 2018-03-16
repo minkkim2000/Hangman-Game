@@ -94,12 +94,16 @@ function startGame () {
 	document.getElementById("numberWins").innerHTML = winCount;
 	document.getElementById("numberLost").innerHTML = lossCount;
 	document.getElementById("lettersClicked").innerHTML = "";
-
+	document.getElementById("startGameButton").innerHTML = "Play Again";
 
 	console.log(chosenAnswer);
 	console.log(lettersInChosenAns);
 	console.log(numBlanks);
 	console.log(blanksForChosenAns);
+
+
+	
+
 }
 
 
@@ -160,13 +164,10 @@ function roundComplete() {
 
 			document.getElementById("winalert").style.display="block";  
 
-			document.getElementById("startGameButton").innerHTML = "Play Again";
+			document.getElementById("startGameButton").innerHTML = "<h1>Play Again</h1>";
 
-			$(document).on('keyup', function (e) {
-			    if (e.keyCode == 13) {
-			        startGame();
-			    }
-			});
+			return false;
+
 
 		}
 		else if (guessesLeft == 0) {
@@ -177,14 +178,18 @@ function roundComplete() {
 			document.getElementById("leftbox").innerHTML = "<img width='100%' src='assets/images/"+ chosenImage + "'/>";
 		
 			document.getElementById("numberLost").innerHTML = lossCount;
+
+			document.getElementById("startGameButton").innerHTML = "<h1>Play Again</h1>";
+
+			return false;
+
 		}
 }
 
 
 
 
-
-document.onkeyup =  function keyPress (argument) {
+document.onkeyup =  function keyPress (lettersGuessed) {
 	lettersGuessed = String.fromCharCode(event.keyCode).toLowerCase();
 
 	console.log(lettersGuessed);
@@ -195,6 +200,9 @@ document.onkeyup =  function keyPress (argument) {
 	console.log("wrongGuesses " + wrongGuesses);
 	document.getElementById("lettersClicked").innerHTML = wrongGuesses.join(" ");
 	roundComplete();
+
 }
+
+
 
 startGame();
